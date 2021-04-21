@@ -36,7 +36,7 @@ static void report_util_line_feed() { printPgmString(PSTR("\r\n")); }
 static void report_util_feedback_line_feed() { serial_write(']'); report_util_line_feed(); }
 static void report_util_gcode_modes_G() { printPgmString(PSTR(" G")); }
 static void report_util_gcode_modes_M() { printPgmString(PSTR(" M")); }
-// static void report_util_comment_line_feed() { serial_write(')'); report_util_line_feed(); }
+static void report_util_comment_line_feed() { serial_write(')'); }
 
 static void report_util_axis_values(float *axis_value) {
 
@@ -117,61 +117,67 @@ static void report_util_axis_values(float *axis_value) {
   #endif
 }
 
-/*
-static void report_util_setting_string(uint8_t n) {
-  serial_write(' ');
-  serial_write('(');
-  switch(n) {
-    case 0: printPgmString(PSTR("stp pulse")); break;
-    case 1: printPgmString(PSTR("idl delay")); break;
-    case 2: printPgmString(PSTR("stp inv")); break;
-    case 3: printPgmString(PSTR("dir inv")); break;
-    case 4: printPgmString(PSTR("stp en inv")); break;
-    case 5: printPgmString(PSTR("lim inv")); break;
-    case 6: printPgmString(PSTR("prb inv")); break;
-    case 10: printPgmString(PSTR("rpt")); break;
-    case 11: printPgmString(PSTR("jnc dev")); break;
-    case 12: printPgmString(PSTR("arc tol")); break;
-    case 13: printPgmString(PSTR("rpt inch")); break;
-    case 20: printPgmString(PSTR("sft lim")); break;
-    case 21: printPgmString(PSTR("hrd lim")); break;
-    case 22: printPgmString(PSTR("hm cyc")); break;
-    case 23: printPgmString(PSTR("hm dir inv")); break;
-    case 24: printPgmString(PSTR("hm feed")); break;
-    case 25: printPgmString(PSTR("hm seek")); break;
-    case 26: printPgmString(PSTR("hm delay")); break;
-    case 27: printPgmString(PSTR("hm pulloff")); break;
-    case 30: printPgmString(PSTR("rpm max")); break;
-    case 31: printPgmString(PSTR("rpm min")); break;
-    case 32: printPgmString(PSTR("laser")); break;
-    default:
-      n -= AXIS_SETTINGS_START_VAL;
-      uint8_t idx = 0;
-      while (n >= AXIS_SETTINGS_INCREMENT) {
-        n -= AXIS_SETTINGS_INCREMENT;
-        idx++;
-      }
-      serial_write(n+'x');
-      switch (idx) {
-        case 0: printPgmString(PSTR(":stp/mm")); break;
-        case 1: printPgmString(PSTR(":mm/min")); break;
-        case 2: printPgmString(PSTR(":mm/s^2")); break;
-        case 3: printPgmString(PSTR(":mm max")); break;
-      }
-      break;
-  }
-  report_util_comment_line_feed();
-}
-*/
+#ifdef SETTINGS_ENABLE_DESCRIPTION_OUTPUT
+  static void report_util_setting_string(uint8_t n) {
+    serial_write(' ');
+    serial_write('(');
+    switch(n) {
+      case 0: printPgmString(PSTR("Step pulse, us")); break;
+      case 1: printPgmString(PSTR("Step idle delay, ms")); break;
+      case 2: printPgmString(PSTR("Step port invert, mask")); break;
+      case 3: printPgmString(PSTR("Direction port invert, mask")); break;
+      case 4: printPgmString(PSTR("Step enable invert, bool")); break;
+      case 5: printPgmString(PSTR("Limit pins invert, bool")); break;
+      case 6: printPgmString(PSTR("Probe pin invert, bool")); break;
+      case 10: printPgmString(PSTR("Status report, mask")); break;
+      case 11: printPgmString(PSTR("Junction deviation, mm")); break;
+      case 12: printPgmString(PSTR("Arc tolerance, mm")); break;
+      case 13: printPgmString(PSTR("Report inches, bool")); break;
+      case 20: printPgmString(PSTR("Soft limits, bool")); break;
+      case 21: printPgmString(PSTR("Hard limits, bool")); break;
+      case 22: printPgmString(PSTR("Homing cycle, bool")); break;
+      case 23: printPgmString(PSTR("Homing dir invert, mask")); break;
+      case 24: printPgmString(PSTR("Homing feed, mm/min")); break;
+      case 25: printPgmString(PSTR("Homing seek, mm/min")); break;
+      case 26: printPgmString(PSTR("Homing debounce, ms")); break;
+      case 27: printPgmString(PSTR("Homing pull-off, mm")); break;
+      case 30: printPgmString(PSTR("Max spindle speed, rpm")); break;
+      case 31: printPgmString(PSTR("Min spindle speed, rpm")); break;
+      case 32: printPgmString(PSTR("Laser mode, bool")); break;
+      default:
+        n -= AXIS_SETTINGS_START_VAL;
+        uint8_t idx = 0;
+        while (n >= AXIS_SETTINGS_INCREMENT) {
+          n -= AXIS_SETTINGS_INCREMENT;
+          idx++;
+        }
+        serial_write(n+'x');
+        switch (idx) {
+          case 0: printPgmString(PSTR(": step/unit [unit = 'mm' OR 'deg']")); break;
+          case 1: printPgmString(PSTR(": Max rate, unit/min [unit = 'mm' OR 'deg']")); break;
+          case 2: printPgmString(PSTR(": Acceleration, unit/s^2 [unit = 'mm' OR 'deg']")); break;
+          case 3: printPgmString(PSTR(": Max travel, unit [unit = 'mm' OR 'deg']")); break;
+        }
+        break;
+    }
+	  report_util_comment_line_feed();
+	}
+#endif
 
 static void report_util_uint8_setting(uint8_t n, int val) {
   report_util_setting_prefix(n);
   print_uint8_base10(val);
+#ifdef SETTINGS_ENABLE_DESCRIPTION_OUTPUT
+  report_util_setting_string(n);
+#endif
   report_util_line_feed(); // report_util_setting_string(n);
 }
 static void report_util_float_setting(uint8_t n, float val, uint8_t n_decimal) {
   report_util_setting_prefix(n);
   printFloat(val,n_decimal);
+#ifdef SETTINGS_ENABLE_DESCRIPTION_OUTPUT
+  report_util_setting_string(n);
+#endif
   report_util_line_feed(); // report_util_setting_string(n);
 }
 
@@ -242,7 +248,7 @@ void report_feedback_message(uint8_t message_code)
 // Welcome message
 void report_init_message()
 {
-  printPgmString(PSTR("\r\nGrbl " GRBL_VERSION " ['$' for help]\r\n"));
+  printPgmString(PSTR("\r\nGrbl MOCMUS " GRBL_VERSION " - Dev branch ['$' for help]\r\n"));
 }
 
 // Grbl help message
@@ -714,6 +720,7 @@ void report_realtime_status()
   #ifdef DEBUG
     printPgmString(PSTR("|Dbg:"));
     // Other debugs here...
+	print_uint8_base10(lim_pin_state);
   #endif
 
   #ifdef REPORT_FIELD_WORK_COORD_OFFSET

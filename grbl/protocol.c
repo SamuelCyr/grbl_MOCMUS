@@ -141,8 +141,8 @@ void protocol_main_loop()
           } else if (char_counter >= (LINE_BUFFER_SIZE-1)) {
             // Detect line buffer overflow and set flag.
             line_flags |= LINE_FLAG_OVERFLOW;
-          } else if (c >= 'a' && c <= 'z') { // Upcase lowercase
-            line[char_counter++] = c-'a'+'A';
+          } else if (c >= 'a' && c <= 'z') {  // If the character is lowercase
+            line[char_counter++] = c-'a'+'A'; // c-'a'+'A' => Transform lowercase to uppercase
           } else {
             line[char_counter++] = c;
           }

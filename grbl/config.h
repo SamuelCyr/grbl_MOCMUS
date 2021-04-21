@@ -121,7 +121,7 @@
 // g-code programs, maybe selected for interface programs.
 // NOTE: If changed, manually update help message in report.c.
 
-#define CMD_RESET 0x18 // ctrl-x.
+#define CMD_RESET '%'//0x18 // ctrl-x.
 #define CMD_STATUS_REPORT '?'
 #define CMD_CYCLE_START '~'
 #define CMD_FEED_HOLD '!'
@@ -296,10 +296,10 @@
 #ifdef DEFAULTS_RAMPS_BOARD
   // Enable the following line to inverse logical behaviour (Normaly Open / Normaly Closed)
   // of some min limit switches attached.
-  //#define INVERT_MIN_LIMIT_PIN_MASK ((1<<AXIS_1) | (1<<AXIS_2) | (1<<AXIS_3))
+  #define INVERT_MIN_LIMIT_PIN_MASK ((1<<AXIS_4) | (1<<AXIS_5))
   // Enable the following line to inverse logical behaviour (Normaly Open / Normaly Closed)
   // of some max limit switches attached.
-  //#define INVERT_MAX_LIMIT_PIN_MASK ((1<<AXIS_1) | (1<<AXIS_2) | (1<<AXIS_3))
+  #define INVERT_MAX_LIMIT_PIN_MASK ((1<<AXIS_4) | (1<<AXIS_5))
 #endif
 
 // Inverts the spindle enable pin from low-disabled/high-enabled to low-enabled/high-disabled. Useful
@@ -561,7 +561,7 @@
 // electrical interference on the signal cables from external sources. It's recommended to first
 // use shielded signal cables with their shielding connected to ground (old USB/computer cables
 // work well and are cheap to find) and wire in a low-pass circuit into each limit pin.
-// #define ENABLE_SOFTWARE_DEBOUNCE // Default disabled. Uncomment to enable.
+ #define ENABLE_SOFTWARE_DEBOUNCE // Default disabled. Uncomment to enable.
 
 // Configures the position after a probing cycle during Grbl's check mode. Disabled sets
 // the position to the probe target, when enabled sets the position to the start position.

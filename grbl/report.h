@@ -20,6 +20,9 @@
 #ifndef report_h
 #define report_h
 
+// Comment the line below to remove verbose description in the grbl console (when using "$$" command)
+#define SETTINGS_ENABLE_DESCRIPTION_OUTPUT
+
 // Define Grbl status codes. Valid values (0-255)
 #define STATUS_OK 0
 #define STATUS_EXPECTED_COMMAND_LETTER 1
