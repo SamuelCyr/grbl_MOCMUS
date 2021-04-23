@@ -68,15 +68,15 @@
 #endif
 #if N_AXIS > 3
   #define AXIS_4 3
-  #define AXIS_4_NAME 'A' // Letter of axis number 4
+  #define AXIS_4_NAME 'B' // Letter of axis number 4
 #endif
 #if N_AXIS > 4
   #define AXIS_5 4
-  #define AXIS_5_NAME 'B' // Letter of axis number 5
+  #define AXIS_5_NAME 'C' // Letter of axis number 5
 #endif
 #if N_AXIS > 5
   #define AXIS_6 5
-  #define AXIS_6_NAME 'C' // Letter of axis number 6
+  #define AXIS_6_NAME 'A' // Letter of axis number 6
 #endif
 #if N_AXIS > 6
   #error "N_AXIS must be <= 6. N_AXIS > 6 is not implemented."

@@ -360,7 +360,7 @@ uint8_t gc_execute_line(char *line)
             gc_block.values.t = int_value;
             break;
           // case 'X', 'Y', 'Z', 'A', 'B', 'C', 'U', 'V' or 'W' depending of AXIS_*_NAME.
-          // case imposible because same name can be used more than one for axis cloning
+          // case impossible because same name can be used more than one for axis cloning
           // case AXIS_1_NAME: case AXIS_2_NAME: case AXIS_3_NAME: case AXIS_4_NAME: case AXIS_5_NAME: case AXIS_6_NAME:
           default:
             if (letter == AXIS_1_NAME) {
