@@ -25,6 +25,7 @@
 // Grbl versioning system
 #define GRBL_VERSION "0.0b"
 #define GRBL_VERSION_BUILD "20210422"
+#define HW_BOARD "RAMPS1.4"
 
 // Define standard libraries used by Grbl.
 #include <avr/io.h>

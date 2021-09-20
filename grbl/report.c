@@ -248,7 +248,7 @@ void report_feedback_message(uint8_t message_code)
 // Welcome message
 void report_init_message()
 {
-  printPgmString(PSTR("\r\nGrbl MOCMUS " GRBL_VERSION " - Dev branch ['$' for help]\r\n"));
+  printPgmString(PSTR("\r\nGrbl MOCMUS " GRBL_VERSION " - Dev branch ['$' for help] - " HW_BOARD "\r\n"));
 }
 
 // Grbl help message
