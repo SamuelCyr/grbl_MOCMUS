@@ -41,10 +41,10 @@
 
 // To use with RAMPS 1.4 Board, comment out the above defines and uncomment the next two defines
 #define DEFAULTS_RAMPS_BOARD
-#define CPU_MAP_2560_RAMPS_BOARD
+//#define CPU_MAP_2560_RAMPS_BOARD
+#define CPU_MAP_2560_MOCMUS_BOARD
 
 // Serial baud rate
-// #define BAUD_RATE 230400
 #define BAUD_RATE 115200
 
 // Axis array index values. Must start with 0 and be continuous.

@@ -23,9 +23,9 @@
 #define grbl_h
 
 // Grbl versioning system
-#define GRBL_VERSION "0.0b"
-#define GRBL_VERSION_BUILD "20210422"
-#define HW_BOARD "RAMPS1.4"
+#define GRBL_VERSION "1.0a"
+#define GRBL_VERSION_BUILD "20210920"
+#define HW_BOARD "MOCMUS Control Board V1.000"
 
 // Define standard libraries used by Grbl.
 #include <avr/io.h>
