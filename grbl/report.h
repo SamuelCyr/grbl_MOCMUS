@@ -43,6 +43,8 @@
 #define STATUS_INVALID_JOG_COMMAND 16
 #define STATUS_SETTING_DISABLED_LASER 17
 
+#define STATUS_OK_GCODE 18 // Added to distinguish between usual "ok" and "ok_gcode" when a gcode command was successfully send
+
 #define STATUS_GCODE_UNSUPPORTED_COMMAND 20
 #define STATUS_GCODE_MODAL_GROUP_VIOLATION 21
 #define STATUS_GCODE_UNDEFINED_FEED_RATE 22

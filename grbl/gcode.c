@@ -1464,7 +1464,7 @@ uint8_t gc_execute_line(char *line)
 
   // TODO: % to denote start of program.
 
-  return(STATUS_OK);
+  return(STATUS_OK_GCODE);
 }
 
 
