@@ -41,8 +41,8 @@
 
 // To use with RAMPS 1.4 Board, comment out the above defines and uncomment the next two defines
 #define DEFAULTS_RAMPS_BOARD
-//#define CPU_MAP_2560_RAMPS_BOARD
 #define CPU_MAP_2560_MOCMUS_BOARD
+//#define CPU_MAP_2560_RAMPS_BOARD
 
 // Serial baud rate
 #define BAUD_RATE 115200
@@ -286,6 +286,13 @@
 // #define INVERT_CONTROL_PIN_MASK CONTROL_MASK // Default disabled. Uncomment to disable.
 // #define INVERT_CONTROL_PIN_MASK ((1<<CONTROL_SAFETY_DOOR_BIT)|(1<<CONTROL_RESET_BIT)) // Default disabled.
 
+// Inverts pin logic of the safety sensor check pins based on a mask. This essentially means you can use
+// normally-closed switches on the specified pins, rather than the default normally-open switches.
+// NOTE: The top option will mask and invert all control pins. The bottom option is an example of
+// inverting only two safety pins, the 2 front doors (left and right). See cpu_map.h for other bit definitions.
+ #define INVERT_SAFETY_PIN_MASK SAFETY_MASK // Default disabled. Uncomment to disable.
+// #define INVERT_SAFETY_PIN_MASK ((1<<SAFETY_DOOR_FRONT_L_BIT)|(1<<SAFETY_DOOR_FRONT_R_BIT)) // Default disabled.
+
 // Inverts select limit pin states based on the following mask. This effects all limit pin functions,
 // such as hard limits and homing. However, this is different from overall invert limits setting.
 // This build option will invert only the limit pins defined here, and then the invert limits setting
@@ -363,6 +370,7 @@
 // NOTE: The options below are here only provide a way to disable certain data fields if a unique
 // situation demands it, but be aware GUIs may depend on this data. If disabled, it may not be compatible.
 #define REPORT_FIELD_BUFFER_STATE // Default enabled. Comment to disable.
+#define REPORT_SAFETY_SENSOR_STATE // Default enabled. Comment to disable.
 #define REPORT_FIELD_PIN_STATE // Default enabled. Comment to disable.
 #define REPORT_FIELD_CURRENT_FEED_SPEED // Default enabled. Comment to disable.
 #define REPORT_FIELD_WORK_COORD_OFFSET // Default enabled. Comment to disable.

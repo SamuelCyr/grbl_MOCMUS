@@ -443,9 +443,6 @@
   #if N_AXIS > 4
     #define STEP_PORT_4 C // Axis number 5 (Ramps E1)
   #endif
-  #if N_AXIS > 5
-    #define STEP_PORT_5 L // Axis number 6 (Ramps Aux-3 D49)
-  #endif
   #define STEP_BIT_0 0  // X Step - Pin A0
   #define STEP_BIT_1 6  // Y Step - Pin A6
   #define STEP_BIT_2 3  // Z Step - Pin D46
@@ -454,9 +451,6 @@
   #endif
   #if N_AXIS > 4
     #define STEP_BIT_4 1 // Axis number 5 Step - Pin D36
-  #endif
-  #if N_AXIS > 5
-    #define STEP_BIT_5 0 // Axis number 6 Step - Pin D49
   #endif
   #define _STEP_BIT(i) STEP_BIT_##i
   #define STEP_BIT(i) _STEP_BIT(i)
@@ -475,9 +469,6 @@
   #if N_AXIS > 4
     #define DIRECTION_PORT_4 C // Axis number 5 (Ramps E1)
   #endif
-  #if N_AXIS > 5
-    #define DIRECTION_PORT_5 B // Axis number 6 (Ramps Aux-3 D51)
-  #endif
   #define DIRECTION_BIT_0 1 // X Dir - Pin A1
   #define DIRECTION_BIT_1 7 // Y Dir - Pin A7
   #define DIRECTION_BIT_2 1 // Z Dir - Pin D48
@@ -486,9 +477,6 @@
   #endif
   #if N_AXIS > 4
     #define DIRECTION_BIT_4 3 // Axis number 5 Step - Pin D34
-  #endif
-  #if N_AXIS > 5
-    #define DIRECTION_BIT_5 2 // Axis number 6 Step - Pin D51
   #endif
   #define _DIRECTION_BIT(i) DIRECTION_BIT_##i
   #define DIRECTION_BIT(i) _DIRECTION_BIT(i)
@@ -502,13 +490,10 @@
   #define STEPPER_DISABLE_PORT_1 F
   #define STEPPER_DISABLE_PORT_2 K
   #if N_AXIS > 3
-    #define STEPPER_DISABLE_PORT_3 A // Axis number 4 (Ramps E0)
+    #define STEPPER_DISABLE_PORT_3 A // Axis number 4 (B)
   #endif
   #if N_AXIS > 4
-    #define STEPPER_DISABLE_PORT_4 C // Axis number 5 (Ramps E1)
-  #endif
-  #if N_AXIS > 5
-    #define STEPPER_DISABLE_PORT_5 B // Axis number 5 (Ramps Aux-3 D53)
+    #define STEPPER_DISABLE_PORT_4 C // Axis number 5 (C)
   #endif
   #define STEPPER_DISABLE_BIT_0 7 // X Enable - Pin D38
   #define STEPPER_DISABLE_BIT_1 2 // Y Enable - Pin A2
@@ -518,9 +503,6 @@
   #endif
   #if N_AXIS > 4
     #define STEPPER_DISABLE_BIT_4 7 // Axis number 5 Step - Pin D30
-  #endif
-  #if N_AXIS > 5
-    #define STEPPER_DISABLE_BIT_5 0 // Axis number 5 Step - Pin D53
   #endif
   #define STEPPER_DISABLE_BIT(i) STEPPER_DISABLE_BIT_##i
   #define STEPPER_DISABLE_DDR(i) _DDR(STEPPER_DISABLE_PORT_##i)
@@ -537,20 +519,14 @@
   #if N_AXIS > 4
     #define MIN_LIMIT_PORT_4 L
   #endif
-  #if N_AXIS > 5
-    #define MIN_LIMIT_PORT_5 F // (Ramps Aux-1 D57)
-  #endif
   #define MIN_LIMIT_BIT_0 5 // X Limit Min - Pin D3
   #define MIN_LIMIT_BIT_1 1 // Y Limit Min - Pin D14
   #define MIN_LIMIT_BIT_2 3 // Z Limit Min - Pin D18
   #if N_AXIS > 3
-    #define MIN_LIMIT_BIT_3 7 // Axis number 4 : RAMPS AUX2 pin D42
+    #define MIN_LIMIT_BIT_3 7 // Axis number 4 : pin D42
   #endif
   #if N_AXIS > 4
-    #define MIN_LIMIT_BIT_4 5 // Axis number 5 : RAMPS AUX2 pin D44
-  #endif
-  #if N_AXIS > 5
-    #define MIN_LIMIT_BIT_5 3 // Axis number 6 : RAMPS AUX2 pin D57
+    #define MIN_LIMIT_BIT_4 5 // Axis number 5 : pin D44
   #endif
   #define _MIN_LIMIT_BIT(i) MIN_LIMIT_BIT_##i
   #define MIN_LIMIT_BIT(i) _MIN_LIMIT_BIT(i)
@@ -567,20 +543,14 @@
   #if N_AXIS > 4
     #define MAX_LIMIT_PORT_4 F
   #endif
-  #if N_AXIS > 5
-    #define MAX_LIMIT_PORT_5 F // (Ramps Aux-3 D58)
-  #endif
   #define MAX_LIMIT_BIT_0 4 // X Limit Max - Pin D2
   #define MAX_LIMIT_BIT_1 0 // Y Limit Max - Pin D15
   #define MAX_LIMIT_BIT_2 2 // Z Limit Max - Pin D19
   #if N_AXIS > 3
-    #define MAX_LIMIT_BIT_3 1 // Axis number 4 : RAMPS AUX2 pin D40
+    #define MAX_LIMIT_BIT_3 1 // Axis number 4 : pin D40
   #endif
   #if N_AXIS > 4
-    #define MAX_LIMIT_BIT_4 5 // Axis number 5 : RAMPS AUX2 pin D59
-  #endif
-  #if N_AXIS > 5
-    #define MAX_LIMIT_BIT_5 4 // Axis number 6 : RAMPS AUX2 pin D58
+    #define MAX_LIMIT_BIT_4 5 // Axis number 5 : pin D59
   #endif
   #define _MAX_LIMIT_BIT(i) MAX_LIMIT_BIT_##i
   #define MAX_LIMIT_BIT(i) _MAX_LIMIT_BIT(i)
@@ -607,28 +577,28 @@
   // Define spindle enable and spindle direction output pins.
   #define SPINDLE_ENABLE_DDR      DDRG
   #define SPINDLE_ENABLE_PORT     PORTG
-  #define SPINDLE_ENABLE_BIT      5 // MEGA2560 Digital Pin 4 - Ramps 1.4 Servo 4 Signal pin (D4)
+  #define SPINDLE_ENABLE_BIT      5 // MEGA2560 Digital Pin 4 - Digital pin (D4)
   #define SPINDLE_DIRECTION_DDR   DDRE
   #define SPINDLE_DIRECTION_PORT  PORTE
-  #define SPINDLE_DIRECTION_BIT   3 // MEGA2560 Digital Pin 5 - Ramps 1.4 Servo 3 Signal pin (D5)
+  #define SPINDLE_DIRECTION_BIT   3 // MEGA2560 Digital Pin 5 - Digital pin (D5)
 
   // Define flood and mist coolant enable output pins.
   #define COOLANT_FLOOD_DDR   DDRB
   #define COOLANT_FLOOD_PORT  PORTB
-  #define COOLANT_FLOOD_BIT   4 // MEGA2560 Digital Pin 10 - Ramps 1.4 12v output
+  #define COOLANT_FLOOD_BIT   4 // MEGA2560 Digital Pin 10 - 12V output
   #define COOLANT_MIST_DDR    DDRH
   #define COOLANT_MIST_PORT   PORTH
-  #define COOLANT_MIST_BIT    6 // MEGA2560 Digital Pin 9 - Ramps 1.4 12v output
+  #define COOLANT_MIST_BIT    6 // MEGA2560 Digital Pin 9 - 12V output
 
   // Define user-control CONTROLs (cycle start, reset, feed hold) input pins.
   // NOTE: All CONTROLs pins must be on the same port and not on a port with other input pins (limits).
   #define CONTROL_DDR       DDRK
   #define CONTROL_PIN       PINK
   #define CONTROL_PORT      PORTK
-  #define CONTROL_RESET_BIT         1  // Pin A9 - RAMPS Aux 2 Port
-  #define CONTROL_FEED_HOLD_BIT     2  // Pin A10 - RAMPS Aux 2 Port
-  #define CONTROL_CYCLE_START_BIT   3  // Pin A11 - RAMPS Aux 2 Port
-  #define CONTROL_SAFETY_DOOR_BIT   4  // Pin A12 - RAMPS Aux 2 Port
+  #define CONTROL_RESET_BIT         1  // Pin A9
+  #define CONTROL_FEED_HOLD_BIT     2  // Pin A10
+  #define CONTROL_CYCLE_START_BIT   3  // Pin A11
+  #define CONTROL_SAFETY_DOOR_BIT   4  // Pin A12
   #define CONTROL_INT       PCIE2  // Pin change interrupt enable pin
   #define CONTROL_INT_vect  PCINT2_vect
   #define CONTROL_PCMSK     PCMSK2 // Pin change interrupt register
@@ -640,6 +610,19 @@
   #define PROBE_PORT      PORTK
   #define PROBE_BIT       7  // MEGA2560 Analog Pin 15
   #define PROBE_MASK      (1<<PROBE_BIT)
+
+  // Machine security sensors
+  #define SAFETY_PORT   PORTL
+  #define SAFETY_PIN    PINL
+  #define SAFETY_DDR    DDRL
+
+  //#define SAFETY_DOOR_BACK_BIT  0 // Digital pin D41 // Not used
+  #define SAFETY_DOOR_PANEL_BIT   6 // Digital pin D43
+  #define SAFETY_DOOR_FRONT_L_BIT 4 // Digital pin D45
+  #define SAFETY_DOOR_FRONT_R_BIT 2 // Digital pin D47
+  #define SAFETY_ESTOP_BIT        0 // Digital pin D49
+
+  #define SAFETY_MASK (1<<SAFETY_DOOR_PANEL_BIT | 1<<SAFETY_DOOR_FRONT_L_BIT | 1<<SAFETY_DOOR_FRONT_R_BIT | 1<<SAFETY_ESTOP_BIT)
 
   // Advanced Configuration Below You should not need to touch these variables
   #if defined(SPINDLE_PWM_ON_D8)

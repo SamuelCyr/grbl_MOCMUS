@@ -107,6 +107,13 @@
 #define CONTROL_PIN_INDEX_FEED_HOLD     bit(2)
 #define CONTROL_PIN_INDEX_CYCLE_START   bit(3)
 
+// Define safety pin index for Grbl internal use. Pin maps may change, but these values don't.
+#define N_SAFETY_PIN 4
+#define SAFETY_PIN_INDEX_DOOR_PANEL     bit(0)
+#define SAFETY_PIN_INDEX_DOOR_FRONT_L   bit(1)
+#define SAFETY_PIN_INDEX_DOOR_FRONT_R   bit(2)
+#define SAFETY_PIN_INDEX_ESTOP          bit(3)
+
 // Define spindle stop override control states.
 #define SPINDLE_STOP_OVR_DISABLED       0  // Must be zero.
 #define SPINDLE_STOP_OVR_ENABLED        bit(0)

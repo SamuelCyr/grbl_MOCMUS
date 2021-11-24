@@ -690,6 +690,21 @@ void report_realtime_status()
     printFloat(sys.spindle_speed,N_DECIMAL_RPMVALUE);
   #endif
 
+  #ifdef REPORT_SAFETY_SENSOR_STATE
+    uint8_t safety_state = safety_get_state();
+    // [0] P: Panel door is open
+    // [1] L: Left door is open
+    // [2] R: Right door is open
+    // [3] S: E-Stop is activated
+    if (safety_state) {
+      printPgmString(PSTR("|SF:")); // SF = Safety
+      if (bit_istrue(safety_state,bit(0))) { serial_write('P'); } // Panel
+      if (bit_istrue(safety_state,bit(1))) { serial_write('L'); } // Left door
+      if (bit_istrue(safety_state,bit(2))) { serial_write('R'); } // Right door
+      if (bit_istrue(safety_state,bit(3))) { serial_write('S'); } // E-Stop
+    }
+  #endif
+
   #ifdef REPORT_FIELD_PIN_STATE
     uint8_t lim_pin_state = limits_get_state();
     uint8_t ctrl_pin_state = system_control_get_state();

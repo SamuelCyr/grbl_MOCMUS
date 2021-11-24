@@ -23,8 +23,8 @@
 #define grbl_h
 
 // Grbl versioning system
-#define GRBL_VERSION "1.1a"
-#define GRBL_VERSION_BUILD "20211116"
+#define GRBL_VERSION "1.2a"
+#define GRBL_VERSION_BUILD "20211124"
 #define HW_BOARD "MOCMUS Control Board V1.000"
 
 // Define standard libraries used by Grbl.
@@ -58,6 +58,7 @@
 #include "probe.h"
 #include "protocol.h"
 #include "report.h"
+#include "safety.h"
 #include "serial.h"
 #include "spindle_control.h"
 #include "stepper.h"
