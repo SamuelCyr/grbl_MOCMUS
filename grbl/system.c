@@ -443,3 +443,17 @@ void system_clear_exec_accessory_overrides() {
   sys_rt_exec_accessory_override = 0;
   SREG = sreg;
 }
+
+void system_set_rt_flag() {
+  uint8_t sreg = SREG;
+  cli();
+  sys_rt_flag = 1;
+  SREG = sreg;
+}
+
+void system_clear_rt_flag() {
+  uint8_t sreg = SREG;
+  cli();
+  sys_rt_flag = 0;
+  SREG = sreg;
+}

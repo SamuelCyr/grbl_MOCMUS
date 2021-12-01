@@ -157,6 +157,7 @@ extern volatile uint8_t sys_rt_exec_state;   // Global realtime executor bitflag
 extern volatile uint8_t sys_rt_exec_alarm;   // Global realtime executor bitflag variable for setting various alarms.
 extern volatile uint8_t sys_rt_exec_motion_override; // Global realtime executor bitflag variable for motion-based overrides.
 extern volatile uint8_t sys_rt_exec_accessory_override; // Global realtime executor bitflag variable for spindle/coolant overrides.
+extern volatile uint8_t sys_rt_flag; // Global realtime flag to tell the main loop that a "rt_exec" bitflags was set.
 extern uint8_t axis_X_mask; // Global mask for axis X bits
 extern uint8_t axis_Y_mask; // Global mask for axis Y bits
 extern uint8_t axis_Z_mask; // Global mask for axis Z bits
@@ -214,6 +215,8 @@ void system_set_exec_motion_override_flag(uint8_t mask);
 void system_set_exec_accessory_override_flag(uint8_t mask);
 void system_clear_exec_motion_overrides();
 void system_clear_exec_accessory_overrides();
+void system_set_rt_flag();
+void system_clear_rt_flag();
 
 
 #endif

@@ -92,7 +92,13 @@ void protocol_main_loop()
           report_status_message(STATUS_OVERFLOW);
         } else if (line[0] == 0) {
           // Empty or comment line. For syncing purposes.
-          report_status_message(STATUS_OK);
+          if (sys_rt_flag) {
+            report_status_message(STATUS_OK);
+            system_clear_rt_flag();
+          }
+          else {
+            report_status_message(STATUS_OK_GCODE);
+          }
         } else if (line[0] == '$') {
           // Grbl '$' system command
           report_status_message(system_execute_line(line));
@@ -222,6 +228,7 @@ void protocol_exec_rt_system()
   uint8_t rt_exec; // Temp variable to avoid calling volatile multiple times.
   rt_exec = sys_rt_exec_alarm; // Copy volatile sys_rt_exec_alarm.
   if (rt_exec) { // Enter only if any bit flag is true
+    system_set_rt_flag();
     // System alarm. Everything has shutdown by something that has gone severely wrong. Report
     // the source of the error to the user. If critical, Grbl disables by entering an infinite
     // loop until system reset/abort.
@@ -248,7 +255,7 @@ void protocol_exec_rt_system()
 
   rt_exec = sys_rt_exec_state; // Copy volatile sys_rt_exec_state.
   if (rt_exec) {
-
+    system_set_rt_flag();
     // Execute system abort.
     if (rt_exec & EXEC_RESET) {
       sys.abort = true;  // Only place this is set true.
@@ -264,7 +271,7 @@ void protocol_exec_rt_system()
     // NOTE: Once hold is initiated, the system immediately enters a suspend state to block all
     // main program processes until either reset or resumed. This ensures a hold completes safely.
     if (rt_exec & (EXEC_MOTION_CANCEL | EXEC_FEED_HOLD | EXEC_SAFETY_DOOR | EXEC_SLEEP)) {
-
+      system_set_rt_flag();
       // State check for allowable states for hold methods.
       if (!(sys.state & (STATE_ALARM | STATE_CHECK_MODE))) {
 
@@ -338,6 +345,7 @@ void protocol_exec_rt_system()
 
     // Execute a cycle start by starting the stepper interrupt to begin executing the blocks in queue.
     if (rt_exec & EXEC_CYCLE_START) {
+      system_set_rt_flag();
       // Block if called at same time as the hold commands: feed hold, motion cancel, and safety door.
       // Ensures auto-cycle-start doesn't resume a hold without an explicit user-input.
       if (!(rt_exec & (EXEC_FEED_HOLD | EXEC_MOTION_CANCEL | EXEC_SAFETY_DOOR))) {
@@ -377,6 +385,7 @@ void protocol_exec_rt_system()
     }
 
     if (rt_exec & EXEC_CYCLE_STOP) {
+      system_set_rt_flag();
       // Reinitializes the cycle plan and stepper system after a feed hold for a resume. Called by
       // realtime command execution in the main program, ensuring that the planner re-plans safely.
       // NOTE: Bresenham algorithm variables are still maintained through both the planner and stepper
@@ -414,6 +423,7 @@ void protocol_exec_rt_system()
   // Execute overrides.
   rt_exec = sys_rt_exec_motion_override; // Copy volatile sys_rt_exec_motion_override
   if (rt_exec) {
+    system_set_rt_flag();
     system_clear_exec_motion_overrides(); // Clear all motion override flags.
 
     uint8_t new_f_override =  sys.f_override;
@@ -441,6 +451,7 @@ void protocol_exec_rt_system()
 
   rt_exec = sys_rt_exec_accessory_override;
   if (rt_exec) {
+    system_set_rt_flag();
     system_clear_exec_accessory_overrides(); // Clear all accessory override flags.
 
     // NOTE: Unlike motion overrides, spindle overrides do not require a planner reinitialization.

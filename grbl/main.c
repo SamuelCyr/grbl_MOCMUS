@@ -31,6 +31,7 @@ volatile uint8_t sys_rt_exec_state;   // Global realtime executor bitflag variab
 volatile uint8_t sys_rt_exec_alarm;   // Global realtime executor bitflag variable for setting various alarms.
 volatile uint8_t sys_rt_exec_motion_override; // Global realtime executor bitflag variable for motion-based overrides.
 volatile uint8_t sys_rt_exec_accessory_override; // Global realtime executor bitflag variable for spindle/coolant overrides.
+volatile uint8_t sys_rt_flag; // Global realtime flag to tell the main loop that a "rt_exec" bitflags was set.
 uint8_t axis_X_mask = 0; // Global mask for axis X bits
 uint8_t axis_Y_mask = 0; // Global mask for axis Y bits
 uint8_t axis_Z_mask = 0; // Global mask for axis Z bits
@@ -406,6 +407,7 @@ int main(void)
     sys_rt_exec_alarm = 0;
     sys_rt_exec_motion_override = 0;
     sys_rt_exec_accessory_override = 0;
+    sys_rt_flag = 0;
 
     // Reset Grbl primary systems.
     serial_reset_read_buffer(); // Clear serial read buffer

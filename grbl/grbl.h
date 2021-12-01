@@ -23,7 +23,7 @@
 #define grbl_h
 
 // Grbl versioning system
-#define GRBL_VERSION "1.2a"
+#define GRBL_VERSION "1.2b"
 #define GRBL_VERSION_BUILD "20211124"
 #define HW_BOARD "MOCMUS Control Board V1.000"
 
